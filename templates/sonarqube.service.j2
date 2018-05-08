@@ -1,0 +1,16 @@
+[Unit]
+Description=SonarQube
+After=syslog.target network.target
+
+[Service]
+ExecStart={{ sonarqube_service_file_path }} start
+ExecStop={{ sonarqube_service_file_path }} stop
+ExecReload={{ sonarqube_service_file_path }} restart
+PIDFile={{ sonarqube_install_dir }}/bin/linux-x86-64/SonarQube.pid
+Type=forking
+User={{ sonarqube_user }}
+Group={{ sonarqube_group }}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

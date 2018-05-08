@@ -1,0 +1,20 @@
+---
+- name: Download SonarQube
+  unarchive:
+    src: "{{ sonarqube_download_url }}"
+    dest: "{{ sonarqube_install_tmp_base_dir }}"
+    remote_src: yes
+    creates: "{{ sonarqube_service_file_path }}"
+
+- name: Install SonarQube
+  command: "mv {{ sonarqube_install_tmp_dir }} {{ sonarqube_install_dir }}"
+  args:
+    creates: "{{ sonarqube_install_dir }}"
+    removes: "{{ sonarqube_install_tmp_dir }}"
+
+- name: Change file permission of SonarQube installation directory
+  file:
+    dest: "{{ sonarqube_install_dir }}"
+    owner: "{{ sonarqube_user }}"
+    group: "{{ sonarqube_group }}"
+    recurse: yes

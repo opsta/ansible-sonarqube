@@ -1,0 +1,21 @@
+---
+- name: Create SonarQube Systemd Unit file
+  template:
+    src: sonarqube.service.j2
+    dest: /lib/systemd/system/sonarqube.service
+    mode: 0644
+  register: sonarqube_systemd
+
+- name: Ensure SonarQube started and enabled
+  systemd:
+    name: sonarqube
+    state: started
+    daemon_reload: yes
+
+- name: Configure SonarQube
+  lineinfile:
+    dest: "{{ sonarqube_config_file_path }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items: "{{ sonarqube_config_vars }}"
+  notify: Restart SonarQube

@@ -1,0 +1,17 @@
+---
+- name: Install required packages for SonarQube installation
+  apt:
+    name: unzip
+    state: present
+    update_cache: yes
+
+- name: Add SonarQube Group
+  group:
+    name: "{{ sonarqube_group }}"
+
+- name: Add SonarQube User
+  user:
+    name: "{{ sonarqube_user }}"
+    group: "{{ sonarqube_group }}"
+    shell: /bin/bash
+    home: "{{ sonarqube_install_dir }}"

@@ -1,0 +1,25 @@
+---
+sonarqube_download_url: https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-6.7.3.zip
+sonarqube_install_tmp_base_dir: /opt
+sonarqube_install_tmp_dir_name: sonarqube-6.7.3
+sonarqube_install_tmp_dir: "{{ sonarqube_install_tmp_base_dir }}/{{ sonarqube_install_tmp_dir_name }}" 
+sonarqube_install_dir: /opt/sonarqube
+sonarqube_service_file_path: "{{ sonarqube_install_dir }}/bin/linux-x86-64/sonar.sh"
+sonarqube_config_file_path: "{{ sonarqube_install_dir }}/conf/sonar.properties"
+
+sonarqube_jdbc_url: jdbc:postgresql://localhost/sonar
+sonarqube_jdbc_username: postgres
+sonarqube_jdbc_password: CHANGEME
+sonarqube_web_host: "0.0.0.0"
+
+sonarqube_user: sonarqube
+sonarqube_group: sonarqube
+
+sonarqube_all_in_one: false
+
+# DON'T CHANGE THIS EXCEPT YOU KNOW WHAT YOU DO
+sonarqube_config_vars:
+  - { regexp: '^[#]?sonar\.jdbc\.username\=', line: "sonar.jdbc.username={{ sonarqube_jdbc_username }}" }
+  - { regexp: '^[#]?sonar\.jdbc\.password\=', line: "sonar.jdbc.password={{ sonarqube_jdbc_password }}" }
+  - { regexp: '^[#]?sonar\.jdbc\.url\=', line: "sonar.jdbc.url={{ sonarqube_jdbc_url }}" }
+  - { regexp: '^[#]?sonar\.web\.host\=', line: "sonar.web.host={{ sonarqube_web_host }}" }

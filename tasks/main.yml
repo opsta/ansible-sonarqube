@@ -1,0 +1,8 @@
+---
+- include_tasks: sonarqube_pre.yml
+- include_tasks: sonarqube_install.yml
+
+- block: # Config SonarQube
+  - include_tasks: sonarqube_post.yml
+  tags:
+    - sonarqube-config
