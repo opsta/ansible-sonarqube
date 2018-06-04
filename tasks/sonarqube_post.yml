@@ -10,6 +10,7 @@
   systemd:
     name: sonarqube
     state: started
+    enabled: yes
     daemon_reload: yes
 
 - name: Configure SonarQube
