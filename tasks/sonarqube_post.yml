@@ -19,4 +19,5 @@
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   with_items: "{{ sonarqube_config_vars }}"
+  no_log: true
   notify: Restart SonarQube

@@ -1,9 +1,16 @@
 ---
-- name: Install required packages for SonarQube installation
+- name: Install required packages for SonarQube installation (Debian/Ubuntu)
   apt:
     name: unzip
     state: present
     update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install required packages for SonarQube installation (CentOS/RedHat)
+  yum:
+    name: unzip
+    state: present
+  when: ansible_os_family == "RedHat"
 
 - name: Add SonarQube Group
   group:
@@ -15,3 +22,4 @@
     group: "{{ sonarqube_group }}"
     shell: /bin/bash
     home: "{{ sonarqube_install_dir }}"
+    create_home: no
