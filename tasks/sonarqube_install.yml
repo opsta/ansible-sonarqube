@@ -7,9 +7,9 @@
     creates: "{{ sonarqube_service_file_path }}"
 
 - name: Install SonarQube
-  command: "mv {{ sonarqube_install_tmp_dir }} {{ sonarqube_install_dir }}"
+  shell: "mv {{ sonarqube_install_tmp_dir }}/* {{ sonarqube_install_dir }}/"
   args:
-    creates: "{{ sonarqube_install_dir }}"
+    creates: "{{ sonarqube_service_file_path }}"
     removes: "{{ sonarqube_install_tmp_dir }}"
 
 - name: Change file permission of SonarQube installation directory
