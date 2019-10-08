@@ -5,6 +5,14 @@
     dest: "{{ sonarqube_install_tmp_base_dir }}"
     remote_src: yes
     creates: "{{ sonarqube_service_file_path }}"
+    
+- name: Create SonarQube Install Dir
+  file:
+    path: "{{ sonarqube_install_dir }}"
+    owner: "{{sonarqube_user}}"
+    group: "{{sonarqube_group}}"
+    state: directory
+    mode: '0755'
 
 - name: Install SonarQube
   shell: "mv {{ sonarqube_install_tmp_dir }}/* {{ sonarqube_install_dir }}/"
