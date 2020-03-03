@@ -6,6 +6,13 @@
     mode: 0644
   register: sonarqube_systemd
 
+- name: Ensure SonarQube started and enabled
+  systemd:
+    name: sonarqube
+    state: started
+    enabled: yes
+    daemon_reload: yes
+
 - name: Configure SonarQube
   lineinfile:
     dest: "{{ sonarqube_config_file_path }}"
@@ -13,20 +20,4 @@
     line: "{{ item.line }}"
   with_items: "{{ sonarqube_config_vars }}"
   no_log: true
-
-- name: Configure VM Max Map Count in Systemctl (On the file)
-  lineinfile:
-    path: "/etc/sysctl.conf"
-    line: "vm.max_map_count=262144"
-    create: yes
-
-- name: Configure VM Max Map Count in Systemctl
-  command: "sudo sysctl -w vm.max_map_count=262144"
   notify: Restart SonarQube
-
-- name: Ensure SonarQube started and enabled
-  systemd:
-    name: sonarqube
-    state: started
-    enabled: yes
-    daemon_reload: yes

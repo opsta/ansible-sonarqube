@@ -8,9 +8,11 @@
 
 - name: Create SonarQube directory if it does not exist
   file:
-    path: "{{ sonarqube_install_dir }}/"
+    path: "{{ sonarqube_install_dir }}"
     state: directory
-    mode: '755'
+    mode: 0755
+    owner: "{{ sonarqube_user }}"
+    group: "{{ sonarqube_group }}"
 
 - name: Install SonarQube
   shell: "mv {{ sonarqube_install_tmp_dir }}/* {{ sonarqube_install_dir }}/"
