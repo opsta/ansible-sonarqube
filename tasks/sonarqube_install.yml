@@ -13,10 +13,10 @@
     mode: '755'
 
 - name: Install SonarQube
-  copy:
-    src: "{{ sonarqube_install_tmp_dir }}/"
-    dest: "{{ sonarqube_install_dir }}/"
-    remote_src: yes
+  shell: "mv {{ sonarqube_install_tmp_dir }}/* {{ sonarqube_install_dir }}/"
+  args:
+    creates: "{{ sonarqube_service_file_path }}"
+    removes: "{{ sonarqube_install_tmp_dir }}"
 
 - name: Change file permission of SonarQube installation directory
   file:
