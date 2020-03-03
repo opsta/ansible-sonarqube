@@ -6,6 +6,12 @@
     remote_src: yes
     creates: "{{ sonarqube_service_file_path }}"
 
+- name: Create SonarQube directory if it does not exist
+  file:
+    path: "{{ sonarqube_install_dir }}/"
+    state: directory
+    mode: '755'
+
 - name: Install SonarQube
   copy:
     src: "{{ sonarqube_install_tmp_dir }}/"
