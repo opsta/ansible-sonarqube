@@ -1,5 +1,5 @@
 ---
-sonarqube_version: 7.9.1
+sonarqube_version: 8.9.5.50698 #TLS version
 sonarqube_download_url: "https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{ sonarqube_version }}.zip"
 sonarqube_install_tmp_base_dir: /opt
 sonarqube_install_tmp_dir_name: "sonarqube-{{ sonarqube_version }}"

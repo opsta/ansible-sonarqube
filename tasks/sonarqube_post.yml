@@ -1,20 +1,20 @@
 ---
 - name: Create SonarQube Systemd Unit file
-  template:
+  ansible.builtin.template:
     src: sonarqube.service.j2
     dest: /lib/systemd/system/sonarqube.service
     mode: 0644
   register: sonarqube_systemd
 
 - name: Ensure SonarQube started and enabled
-  systemd:
+  ansible.builtin.systemd:
     name: sonarqube
     state: started
     enabled: yes
     daemon_reload: yes
 
 - name: Configure SonarQube
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "{{ sonarqube_config_file_path }}"
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
