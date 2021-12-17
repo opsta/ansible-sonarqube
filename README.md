@@ -4,7 +4,7 @@
 
 ## Requirements
 
-much run in host preparation with this vars 
+must run host_preparation playbook with this vars 
 ```
 host_preparation_sysctl_vars:
   - { regexp: '^vm\.max_map_count \= ', line: 'vm.max_map_count = 262144' }
