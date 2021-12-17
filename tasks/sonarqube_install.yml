@@ -1,13 +1,13 @@
 ---
 - name: Download SonarQube
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ sonarqube_download_url }}"
     dest: "{{ sonarqube_install_tmp_base_dir }}"
     remote_src: yes
     creates: "{{ sonarqube_service_file_path }}"
 
 - name: Create SonarQube directory if it does not exist
-  file:
+  ansible.builtin.file:
     path: "{{ sonarqube_install_dir }}"
     state: directory
     mode: 0755
@@ -15,13 +15,13 @@
     group: "{{ sonarqube_group }}"
 
 - name: Install SonarQube
-  shell: "mv {{ sonarqube_install_tmp_dir }}/* {{ sonarqube_install_dir }}/"
+  ansible.builtin.shell: "mv {{ sonarqube_install_tmp_dir }}/* {{ sonarqube_install_dir }}/"
   args:
     creates: "{{ sonarqube_service_file_path }}"
     removes: "{{ sonarqube_install_tmp_dir }}"
 
 - name: Change file permission of SonarQube installation directory
-  file:
+  ansible.builtin.file:
     dest: "{{ sonarqube_install_dir }}"
     owner: "{{ sonarqube_user }}"
     group: "{{ sonarqube_group }}"
