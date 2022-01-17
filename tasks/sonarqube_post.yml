@@ -1,4 +1,13 @@
 ---
+- name: Config Elasticsearch vm.max_map_count
+  shell: sysctl -w vm.max_map_count=262144
+  become: true
+  
+- name: Config Elasticsearch vm.max_map_count (persistance)
+  lineinfile:
+    path: /etc/sysctl.conf
+    line: "vm.max_map_count=262144"
+
 - name: Create SonarQube Systemd Unit file
   ansible.builtin.template:
     src: sonarqube.service.j2

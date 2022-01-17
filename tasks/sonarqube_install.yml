@@ -5,6 +5,14 @@
     dest: "{{ sonarqube_install_tmp_base_dir }}"
     remote_src: yes
     creates: "{{ sonarqube_service_file_path }}"
+    
+- name: Create SonarQube Install Dir
+  file:
+    path: "{{ sonarqube_install_dir }}"
+    owner: "{{sonarqube_user}}"
+    group: "{{sonarqube_group}}"
+    state: directory
+    mode: '0755'
 
 - name: Create SonarQube directory if it does not exist
   ansible.builtin.file:
